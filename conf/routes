@@ -4,6 +4,27 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+POST	/portal/login				controllers.Application.login()
+GET 	/portal/logout				controllers.Application.logout()
+
+GET		/portal/welcome				controllers.Welcome.index()
+
+# Customer
+GET		/portal/customers			controllers.CustomerController.index()
+GET 	/portal/create/customer 	controllers.CustomerController.create_new()
+POST 	/portal/create/customer 	controllers.CustomerController.create_save()
+GET 	/portal/update/customer/:id controllers.CustomerController.update_get(id: Long)
+POST 	/portal/update/customer/:id controllers.CustomerController.update_save(id: Long)
+GET 	/portal/delete/customer/:id controllers.CustomerController.delete(id: Long)
+GET		/service/customers			controllers.CustomerController.all()
+GET		/service/customer/:id		controllers.CustomerController.get(id: Long)
+POST	/service/customer			controllers.CustomerController.create()
+PUT		/service/customer/:id		controllers.CustomerController.update(id: Long)
+
+# User
+GET 	/portal/users 				controllers.UserController.index()
+GET 	/portal/change/passwd		controllers.UserController.get_change_passwd()
+POST 	/portal/change/passwd		controllers.UserController.change_passwd()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

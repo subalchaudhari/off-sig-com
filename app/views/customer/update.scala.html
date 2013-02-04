@@ -1,0 +1,15 @@
+@(customerForm: Form[forms.CustomerForm],id: Long)
+
+@import helper._
+
+
+@main() {
+
+	@views.html.common.errormsg(customerForm.globalErrors())	
+	
+	@form(action = routes.CustomerController.update_save(id)) {
+		@customer.form(customerForm,Messages("customer.update"),true)
+	}
+
+		
+}
