@@ -1,0 +1,36 @@
+@(customerForm: Form[forms.CustomerForm],title: String, isupdate: Boolean = false)
+
+@import helper._
+<table class="table">
+<tr>
+<th style="vertical-align: middle">@title</th>
+</tr>
+  <tr>
+    <th>@inputText(field=customerForm("fname"), args = 'class -> "input-large",'placeholder -> Messages("customer.fname"),'_label -> Messages("customer.fname"),'_showConstraints -> false)</th>
+    <th>@inputText(field=customerForm("lname"), args = 'class -> "input-large", 'placeholder -> Messages("customer.lname"), '_label -> Messages("customer.lname"),'_showConstraints -> false)</th>
+  </tr>
+  <tr>
+    <td>@textarea(field=customerForm("address"), args = 'rows -> 3, 'cols -> 50, 'class -> "input-large", 
+			'placeholder -> Messages("customer.address"), '_label -> Messages("customer.address"), '_showConstraints ->false)</td>
+    <td>@inputText(field=customerForm("mobile"), args = 'class -> "input-large", '_label -> Messages("customer.mobile"), 'placeholder -> "0123456789", '_showConstraints -> false)
+    @inputText(field=customerForm("email"), args = 'class -> "input-large", '_label -> Messages("customer.email"), 'placeholder -> "example@gmail.com", '_showConstraints -> false)   
+    
+    </td>
+  </tr>
+  <tr>
+  <td> @inputFile(
+                customerForm("signatureOne"), 
+                '_label -> Messages("customer.signatureOne"),
+                '_error -> customerForm.error("file")
+            )</td>
+  <td>@inputFile(
+                customerForm("signatureTwo"), 
+                '_label -> Messages("customer.signatureTwo"),
+                '_error -> customerForm.error("file")
+            )</td>
+  </tr>
+</table>       		
+	
+<button type="submit" class="btn btn-primary">@Messages("common.button.save")</button>
+
+			

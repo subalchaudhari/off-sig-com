@@ -1,0 +1,18 @@
+@(customerForm: Form[forms.CustomerForm])
+
+@import helper._
+
+
+@main() {
+
+	@views.html.common.errormsg(customerForm.globalErrors())	
+	
+	@form(action = routes.CustomerController.create_save(),'enctype -> "multipart/form-data") {
+		@customer.form(customerForm,Messages("customer.add"))
+	}
+
+	<script type="text/javascript">
+	
+	</script>
+	
+}
