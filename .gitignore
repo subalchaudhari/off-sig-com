@@ -14,6 +14,7 @@ modules
 precompiled
 project/project
 project/target
+public/signatureimages
 target
 tmp
 test-result
