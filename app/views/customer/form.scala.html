@@ -18,8 +18,16 @@
     </td>
   </tr>
   <tr>
-  <td>@inputFile(field=customerForm("image"),args ='_label ->Messages("customer.signatureOne") )</td>
-  <td>@inputFile(field=customerForm("image"),args ='_label -> Messages("customer.signatureTwo"))</td>
+  <td> @inputFile(
+                customerForm("signatureOne"), 
+                '_label -> Messages("customer.signatureOne"),
+                '_error -> customerForm.error("file")
+            )</td>
+  <td>@inputFile(
+                customerForm("signatureTwo"), 
+                '_label -> Messages("customer.signatureTwo"),
+                '_error -> customerForm.error("file")
+            )</td>
   </tr>
 </table>       		
 	

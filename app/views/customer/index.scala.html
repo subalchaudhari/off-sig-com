@@ -36,6 +36,7 @@
   </div>
   <div class="modal-body">
     <p>Page is Under Development</p>
+    <!-- <img alt="" src="@routes.Assets.at("SignatureImages/SUB5608_1.jpg")"> -->
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
@@ -66,6 +67,11 @@
 		$("#customer-edit").click(customer_edit_click);
 		$("#customer-delete").click(customer_delete_click);
 		$("#customer-verify-sign").click(verify_cust_sign);
+		$('#customer-grid').popover({title:'@Messages("cust.sign.img")',html:true,content:cust_signs(),placement:'bottom',trigger:'click'});
+		/* $('#customer-grid').click(function(){
+			//alert("test");
+			$(this).popover({title:'@Messages("cust.sign.img")',html:true,content:verify_cust_sign(),placement:'bottom'});
+		}); */
 		
 	});
 
@@ -80,7 +86,7 @@
 
 		$("#customer-grid").jqGrid({
 			datatype: "local",
-		    colNames:['@Messages("common.srno")','@Messages("common.id")','@Messages("customer.fname")','@Messages("customer.lname")','@Messages("customer.accountNumber")','@Messages("customer.mobile")','@Messages("customer.email")','@Messages("customer.address")'],
+		    colNames:['@Messages("common.srno")','@Messages("common.id")','@Messages("customer.fname")','@Messages("customer.lname")','@Messages("customer.accountNumber")','@Messages("customer.mobile")','@Messages("customer.email")','@Messages("customer.address")','@Messages("customer.signatureOne")','@Messages("customer.signatureTwo")'],
 		    colModel:[
 		    	{name:'id',index:'id',hidden:true,width:'50px',key:true},
 		    	{name:'pk',index:'pk',hidden:true,width:'50px',sorttype:'int'},
@@ -90,6 +96,8 @@
 		    	{name:'mobile',index:'mobile'},
 		    	{name:'email',index:'email'},		    			    	
 		    	{name:'address',index:'address'},
+		    	{name:'signatureOne',index:'signatureOne',hidden:true},
+		    	{name:'signatureTwo',index:'signatureTwo',hidden:true},
 		    	
 		    ],		   
 		    viewrecords: true,
@@ -102,8 +110,10 @@
 		 $.each(customers,function(i,customer){
 			customer.pk=customer.id;
 			customer.id=i+1;			
-			$("#customer-grid").jqGrid('addRowData',i+1,customer);	
+			$("#customer-grid").jqGrid('addRowData',i+1,customer);
+			
 		}); 
+		 
 	};
 
 	var customer_edit_click = function(){		
@@ -151,13 +161,34 @@
 		
 		var id = $("#customer-grid").jqGrid('getGridParam','selrow'); 
 		if (id) { 
-			$('#myModal').modal(); 			
+			var data="hello";
+			$('#myModel p').html(data);
+     		$('#myModal').modal(); 
 			
 		} else { 
 			alert('@Messages("please.select.row")');
-		} 		
+		} 	
+		
 		
 	}
+	
+	var cust_signs=function(){
+		//alert("hello");
+		var id = $("#customer-grid").jqGrid('getGridParam','selrow');
+		console.debug("id:"+id);
+		//if(id){
+		var ret = $("#customer-grid").jqGrid('getRowData',id);
+		console.debug("Ret:"+ret);
+		var div='<img src="@routes.Assets.at("SignatureImages/'+ret.signatureOne+'")">';
+		return div;
+		console.debug("data:"+ret.signatureOne);
+		//}else{
+		//	return "No Image";
+		//}
+		}	
+		
+		
+	
 
 	</script>
 }	

@@ -38,9 +38,11 @@ public class Customer extends Model {
 	
 	public String email;	
 	
-	@Lob
-	//@NotNull
-	public byte[] image;
+	@NotNull
+	public String signatureOne;
+	
+	@NotNull
+	public String signatureTwo;
 	
 	public static Finder<Long, Customer> find=new Finder<>(Long.class, Customer.class);
 	

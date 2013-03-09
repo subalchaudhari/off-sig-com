@@ -1,6 +1,8 @@
 package controllers;
 
+import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import models.Customer;
 
@@ -8,15 +10,19 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
 import forms.CustomerForm;
+import play.data.DynamicForm;
+import play.data.DynamicForm.Dynamic;
 import play.data.Form;
 import play.i18n.Messages;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 import views.html.customer.create;
 import views.html.customer.index;
 import views.html.customer.update;
+import play.mvc.Http.*;
 
 public class CustomerController extends Controller {
 	
@@ -34,13 +40,15 @@ public class CustomerController extends Controller {
 
 	public static Result create_save(){
 		Form<CustomerForm> filledForm = customerForm.bindFromRequest();
-
-		if(filledForm.hasErrors()){			
+		
+		if(filledForm.hasErrors()){	
+			System.out.println("in error");
 			return badRequest(create.render(filledForm));
 		}
-					
+		
 		CustomerForm customerForm=filledForm.get();
-		if(customerForm==null){						
+		if(customerForm==null){			
+			System.out.println("in form");
 			return badRequest(create.render(filledForm));
 		}
 
@@ -48,9 +56,45 @@ public class CustomerController extends Controller {
 
 		Customer customer=new Customer();
 		formToModel(customer,customerForm);
-				
+		MultipartFormData body = request().body().asMultipartFormData();
+		  FilePart picture1 = body.getFile("signatureOne");
+		  FilePart picture2=body.getFile("signatureTwo");
+		  if (picture1 != null && picture2!=null) {
+		    File file1 = picture1.getFile();
+		    File file2= picture2.getFile();
+		    String path="public/SignatureImages/"+customer.accountNumber;
+		    File f=new File(path);
+		    f.mkdir();
+		    file1.renameTo(new File(path,"signatureOne.jpg"));
+		    file2.renameTo(new File(path,"signatureTwo.jpg"));
+		    System.out.println("File uploaded successfully...");
+		  } else {
+		    filledForm.reject("file","Please select the image to uplaod");    
+		  }
+
+		
+		/*String path="public/SignatureImages";
+		MultipartFormData body=request().body().asMultipartFormData();
+		FilePart sign1=body.getFile("signatureOne");
+		FilePart sign2=body.getFile("signatureTwo");
+		System.out.println("file 1: "+sign1.getFilename()+" content type: "+sign1.getContentType());
+		System.out.println("file 2: "+sign2.getFilename()+" content type: "+sign2.getContentType());
+		File img1=sign1.getFile();
+		File img2=sign2.getFile();
+		img1.renameTo(new File(path,customer.signatureOne+".jpg"));
+		img2.renameTo(new File(path,customer.signatureTwo+".jpg"));
+		System.out.println("file uploded...successfully");
+		*/		
 		customer.save();
-								
+		String inputFile="public/SignatureImages/"+customer.accountNumber+"/signatureOne.jpg";
+		String smoothfilename="public/SignatureImages/"+customer.accountNumber+"/signatureOne_smooth.jpg";
+		String binaryfilename="public/SignatureImages/"+customer.accountNumber+"/signatureOne_binary.jpg";
+		String sizeNormalizeFileName="public/SignatureImages/"+customer.accountNumber+"/signatureOne_normalize.jpg";
+		SigImgProcessingController.smoothing(inputFile, smoothfilename);
+		SigImgProcessingController.binarization(smoothfilename, binaryfilename);
+		SigImgProcessingController.sizeNormalization(binaryfilename, sizeNormalizeFileName);		
+		float[] sig1=SigImgProcessingController.calculateAngles(sizeNormalizeFileName);
+		sig1.toString();
 		return  redirect(controllers.routes.CustomerController.index());
 	}
 
@@ -86,9 +130,7 @@ public class CustomerController extends Controller {
 		if(customer==null){			
 			filledForm.reject(Messages.get("id.not.exists",id));
 			return badRequest(update.render(filledForm,id));	
-		}
-
-		
+		}	
 
 		formToModel(customer,customerForm);	
 		customer.update();
@@ -103,9 +145,13 @@ public class CustomerController extends Controller {
 		customer.address=customerForm.address;
 		customer.mobile=customerForm.mobile;
 		customer.email=customerForm.email;
-		customer.image=customerForm.image;
+		
+		//to genrate random account number
 		int accno=min + (int)(Math.random() * ((max - min) + 1));
-		customer.accountNumber=customerForm.fname.substring(0, 3).toUpperCase()+String.valueOf(accno);	
+		String accountNumber=customerForm.fname.substring(0, 3).toUpperCase()+String.valueOf(accno);
+		customer.accountNumber=accountNumber;
+		customer.signatureOne=accountNumber+"_1.jpg";
+		customer.signatureTwo=accountNumber+"_2.jpg";
 	}
 
 	public static Result delete(Long id){		

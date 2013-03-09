@@ -11,8 +11,17 @@ create table customer (
   address                   varchar(255),
   mobile                    varchar(255),
   email                     varchar(255),
-  image                     blob,
+  signature_one             varchar(255) not null,
+  signature_two             varchar(255) not null,
   constraint pk_customer primary key (id))
+;
+
+create table customer_signature (
+  id                        bigint not null,
+  accno                     varchar(255),
+  imagename                 varchar(255),
+  angles                    varchar(255),
+  constraint pk_customer_signature primary key (id))
 ;
 
 create table employee (
@@ -30,6 +39,8 @@ create table employee (
 
 create sequence customer_seq;
 
+create sequence customer_signature_seq;
+
 create sequence employee_seq;
 
 
@@ -41,11 +52,15 @@ SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists customer;
 
+drop table if exists customer_signature;
+
 drop table if exists employee;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists customer_seq;
+
+drop sequence if exists customer_signature_seq;
 
 drop sequence if exists employee_seq;
 

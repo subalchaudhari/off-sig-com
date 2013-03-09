@@ -32,8 +32,9 @@ public class CustomerForm implements Serializable {
 	@MaxLength(value=225)
 	public String address;
 	
-	@Lob
-	public byte[] image;
+	public String signatureOne;
+	
+	public String signatureTwo;
 	
 
 }

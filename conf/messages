@@ -22,6 +22,7 @@ customer.signatureOne=Signature Sample 1
 customer.signatureTwo=Signature Sample 2
 customer.add=Create Customer
 customer.update=Update Customer
+cust.sign.img=Customer Sample Signatures
 
 # Error Messages
 please.select.row=Please Select Row
