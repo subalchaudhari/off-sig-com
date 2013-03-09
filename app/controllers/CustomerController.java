@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import models.Customer;
+import models.CustomerSignature;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
@@ -94,7 +95,18 @@ public class CustomerController extends Controller {
 		SigImgProcessingController.binarization(smoothfilename, binaryfilename);
 		SigImgProcessingController.sizeNormalization(binaryfilename, sizeNormalizeFileName);		
 		float[] sig1=SigImgProcessingController.calculateAngles(sizeNormalizeFileName);
-		sig1.toString();
+		StringBuffer angels=new StringBuffer();
+		
+		for(int i=0;i<sig1.length;i++){
+			angels.append(sig1[i]+"|");
+		}
+		System.out.println("Angles: "+angels);
+		CustomerSignature custSign=new CustomerSignature();
+		custSign.accno=customer.accountNumber;
+		custSign.imagename="signatureOne.jpg";
+		custSign.angles=angels.toString();
+		custSign.save();
+		
 		return  redirect(controllers.routes.CustomerController.index());
 	}
 
