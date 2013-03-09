@@ -27,7 +27,7 @@ import play.mvc.Http.*;
 
 public class CustomerController extends Controller {
 	
-	final static Form<CustomerForm> customerForm = form(CustomerForm.class);
+	final static Form<CustomerForm> customerForm = Form.form(CustomerForm.class);
 	public static int min=1000;
 	public static int max=9999;
 	
@@ -63,7 +63,7 @@ public class CustomerController extends Controller {
 		  if (picture1 != null && picture2!=null) {
 		    File file1 = picture1.getFile();
 		    File file2= picture2.getFile();
-		    String path="public/SignatureImages/"+customer.accountNumber;
+		    String path="public/signatureimages/"+customer.accountNumber;
 		    File f=new File(path);
 		    f.mkdir();
 		    file1.renameTo(new File(path,"signatureOne.jpg"));
@@ -87,10 +87,10 @@ public class CustomerController extends Controller {
 		System.out.println("file uploded...successfully");
 		*/		
 		customer.save();
-		String inputFile="public/SignatureImages/"+customer.accountNumber+"/signatureOne.jpg";
-		String smoothfilename="public/SignatureImages/"+customer.accountNumber+"/signatureOne_smooth.jpg";
-		String binaryfilename="public/SignatureImages/"+customer.accountNumber+"/signatureOne_binary.jpg";
-		String sizeNormalizeFileName="public/SignatureImages/"+customer.accountNumber+"/signatureOne_normalize.jpg";
+		String inputFile="public/signatureimages/"+customer.accountNumber+"/signatureOne.jpg";
+		String smoothfilename="public/signatureimages/"+customer.accountNumber+"/signatureOne_smooth.jpg";
+		String binaryfilename="public/signatureimages/"+customer.accountNumber+"/signatureOne_binary.jpg";
+		String sizeNormalizeFileName="public/signatureimages/"+customer.accountNumber+"/signatureOne_normalize.jpg";
 		SigImgProcessingController.smoothing(inputFile, smoothfilename);
 		SigImgProcessingController.binarization(smoothfilename, binaryfilename);
 		SigImgProcessingController.sizeNormalization(binaryfilename, sizeNormalizeFileName);		

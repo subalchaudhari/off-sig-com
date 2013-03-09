@@ -20,7 +20,7 @@ import play.i18n.Messages;
 
 public class UserController extends Controller {
 
-	final static Form<ChangePasswdForm> changePasswdForm = form(ChangePasswdForm.class);
+	final static Form<ChangePasswdForm> changePasswdForm = Form.form(ChangePasswdForm.class);
 
 	public static Result index(){
 		return ok(index.render());

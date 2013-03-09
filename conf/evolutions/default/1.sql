@@ -20,7 +20,7 @@ create table customer_signature (
   id                        bigint not null,
   accno                     varchar(255),
   imagename                 varchar(255),
-  angles                    varchar(255),
+  angles                    varchar(2000) not null,
   constraint pk_customer_signature primary key (id))
 ;
 

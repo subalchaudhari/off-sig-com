@@ -10,7 +10,7 @@ import views.html.*;
 
 public class Application extends Controller {
 	
-	final static Form<LoginForm> loginForm=form(LoginForm.class);
+	final static Form<LoginForm> loginForm=Form.form(LoginForm.class);
   
   public static Result index() {
     return ok(index.render(loginForm));
