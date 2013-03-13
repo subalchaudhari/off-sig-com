@@ -1,0 +1,74 @@
+@(imageForm: Form[forms.ImageUploadForm])(accountNo: String)
+
+@import helper._
+
+
+@main() {
+<style>
+img{
+border-style:solid;
+border-width:medium;
+}
+</style>
+
+<script type="text/javascript">
+$(function(){
+	$('#verify').click(verifySignatures);
+});
+
+var verifySignatures=function(){
+	var accno='@accountNo';
+	$.ajax({
+		url:'/portal/verify',
+		data:{accno:accno},
+		success: function(data, textStatus, jqXHR){					
+			alert(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown){				
+			alert("Error : " + jqXHR.responseText);
+		},
+		complete: function(jqXHR,textStatus){					
+		}
+	});
+}
+
+
+</script>
+
+<h3>Signature verfication for Account :@accountNo</h3>
+<hr>
+<div>
+<table>
+<tr>
+<td><p>Sample Signature One:</p>
+<img src="/assets/SignatureImages/@accountNo/@{accountNo}_1.jpg"  width="200" height="200"></td>
+<td><p>Sample Signature Two:</p>
+<img src="/assets/SignatureImages/@accountNo/@{accountNo}_2.jpg"  width="200" height="200">
+</td>
+</tr>
+</table>
+</div>
+<hr>
+<div>
+<table>
+<tr>
+<td>@views.html.common.errormsg(imageForm.globalErrors())
+
+@form(action=routes.CustomerController.upload_image(accountNo),'enctype -> "multipart/form-data"){
+ @inputFile(
+                imageForm("image"), 
+                '_label -> Messages("customer.signature.verify"),
+                '_error -> imageForm.error("file")
+            )
+<button type="submit" class="btn btn-primary">@Messages("common.button.upload")</button>            
+}
+</td>
+<td><p>Sample Signature:</p>
+<img src="/assets/SignatureImages/@accountNo/@{accountNo}_verify.jpg"  width="200" height="200"> </td>
+</tr>
+</table>
+</div>
+<hr>
+<button type="submit" id="verify" class="btn btn-primary">@Messages("common.button.verify")</button>
+		
+}

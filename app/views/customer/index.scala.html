@@ -18,7 +18,7 @@
       		@Messages("common.button.delete")</a>
       </li>
       <li class="pull-right">
-	  	<a href="#myModal" id='customer-verify-sign' role="button" class="btn">@Messages("common.button.verifySignature")</a>
+	  	<a href="#" id='customer-verify-sign' link="@routes.CustomerController.verify_get(0L)" class="btn">@Messages("common.button.verifySignature")</a>
 	  </li>
        
     </ul>
@@ -29,19 +29,7 @@
   	<table id="customer-grid"></table> 
 	<div id="customer-pager"></div>
 	
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></button>
-    <h3 id="myModalLabel">Verify Customer Signature</h3>
-  </div>
-  <div class="modal-body">
-    <p>Page is Under Development</p>
-    <!-- <img alt="" src="@routes.Assets.at("SignatureImages/SUB5608_1.jpg")"> -->
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
-  </div>
-</div>
+
 
 	<script type="text/javascript">
 
@@ -161,13 +149,17 @@
 		
 		var id = $("#customer-grid").jqGrid('getGridParam','selrow'); 
 		if (id) { 
-			var data="hello";
-			$('#myModel p').html(data);
-     		$('#myModal').modal(); 
+			/* $('#myModal').modal(); 
+			var ret = $("#customer-grid").jqGrid('getRowData',id);
+			console.log(ret.accountNumber); */
+			var ret = $("#customer-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.pk);
+			$(this).attr('href',link);
 			
 		} else { 
 			alert('@Messages("please.select.row")');
-		} 	
+		}	
 		
 		
 	}

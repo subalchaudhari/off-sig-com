@@ -20,6 +20,10 @@ GET		/service/customers			controllers.CustomerController.all()
 GET		/service/customer/:id		controllers.CustomerController.get(id: Long)
 POST	/service/customer			controllers.CustomerController.create()
 PUT		/service/customer/:id		controllers.CustomerController.update(id: Long)
+GET     /portal/verifySig/:id       controllers.CustomerController.verify_get(id: Long)
+POST    /portal/uploadImage/:accountNo         controllers.CustomerController.upload_image(accountNo:String)
+#POST    /portal/uploadImage/         controllers.CustomerController.upload_image1()
+GET     /portal/verify               controllers.CustomerController.verifySignature(accno:String)
 
 # User
 GET 	/portal/users 				controllers.UserController.index()

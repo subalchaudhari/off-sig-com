@@ -13,6 +13,7 @@ create table customer (
   email                     varchar(255),
   signature_one             varchar(255) not null,
   signature_two             varchar(255) not null,
+  signOneAngles             varchar(2000) not null,
   constraint pk_customer primary key (id))
 ;
 

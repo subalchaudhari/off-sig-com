@@ -23,6 +23,9 @@ customer.signatureTwo=Signature Sample 2
 customer.add=Create Customer
 customer.update=Update Customer
 cust.sign.img=Customer Sample Signatures
+common.button.verify=Verify Signature
+common.button.upload=Upload
+customer.signature.verify=Select signature to Compare
 
 # Error Messages
 please.select.row=Please Select Row

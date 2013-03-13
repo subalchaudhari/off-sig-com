@@ -3,6 +3,7 @@ package models;
 import java.util.List;
 
 import javax.annotation.Generated;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,6 +45,9 @@ public class Customer extends Model {
 	@NotNull
 	public String signatureTwo;
 	
+	@Column(name = "signOneAngles", nullable = false, length = 2000)
+	public String signOneAngles;
+	
 	public static Finder<Long, Customer> find=new Finder<>(Long.class, Customer.class);
 	
 	public static Customer get(Long id) {
@@ -56,6 +60,10 @@ public class Customer extends Model {
 
 	public static void delete(Long id) {
 		find.byId(id).delete();
+	}
+	
+	public static Customer byAccno(String accno){
+		return find.where().eq("accountNumber", accno).findUnique();
 	}
 	
 
