@@ -34,6 +34,9 @@ import com.googlecode.javacv.cpp.opencv_core.IplImage;
 public class SigImgProcessingController {
 
 	final private static int NUM_OF_BLOCKS = 96;
+	final private static int LOWER_LIMIT=85;
+	final private static int UPPER_LIMIT=115;
+	final private static int MATCHING_PERCENTAGE=80;
 
 	/**
 	 * @param args
@@ -203,14 +206,14 @@ public class SigImgProcessingController {
 		boolean result = false;
 		int count = 0;
 		for (int i = 0; i < src.length; i++) {
-			float lower = (src[i] * 85) / 100;
-			float upper = (src[i] * 115) / 100;
+			float lower = (src[i] * LOWER_LIMIT) / 100;
+			float upper = (src[i] * UPPER_LIMIT) / 100;
 			if (dest[i] >= lower && dest[i] <= upper) {
 				count++;
 			}
 		}
 
-		if (count >= 80) {
+		if (count >=MATCHING_PERCENTAGE) {
 			result = true;
 		}
 

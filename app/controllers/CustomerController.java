@@ -62,9 +62,9 @@ public class CustomerController extends Controller {
 		Customer customer=new Customer();
 		formToModel(customer,customerForm);
 		MultipartFormData body = request().body().asMultipartFormData();
-		  FilePart picture1 = body.getFile("signatureOne");
+		  FilePart picture1 =body.getFile("signatureOne");
 		  FilePart picture2=body.getFile("signatureTwo");
-		  if (picture1 != null && picture2!=null) {
+		  if (picture1 != null && picture2!= null) {
 		    File file1 = picture1.getFile();
 		    File file2= picture2.getFile();
 		    String path="public/signatureimages/"+customer.accountNumber;
@@ -76,20 +76,7 @@ public class CustomerController extends Controller {
 		  } else {
 		    filledForm.reject("file","Please select the image to uplaod");    
 		  }
-
-		
-		/*String path="public/SignatureImages";
-		MultipartFormData body=request().body().asMultipartFormData();
-		FilePart sign1=body.getFile("signatureOne");
-		FilePart sign2=body.getFile("signatureTwo");
-		System.out.println("file 1: "+sign1.getFilename()+" content type: "+sign1.getContentType());
-		System.out.println("file 2: "+sign2.getFilename()+" content type: "+sign2.getContentType());
-		File img1=sign1.getFile();
-		File img2=sign2.getFile();
-		img1.renameTo(new File(path,customer.signatureOne+".jpg"));
-		img2.renameTo(new File(path,customer.signatureTwo+".jpg"));
-		System.out.println("file uploded...successfully");
-		*/		
+				
 		
 		String inputFile="public/signatureimages/"+customer.accountNumber+"/"+customer.signatureOne;
 		String smoothfilename="public/signatureimages/"+customer.accountNumber+"/signatureOne_smooth.jpg";
@@ -262,10 +249,15 @@ public class CustomerController extends Controller {
 		  FilePart picture1 = body.getFile("image");
 		  if (picture1 != null) {
 		    File file1 = picture1.getFile();
+		    String pathToDelete="public/signatureimages/"+accountNo+"/"+accountNo+"_verify.jpg";
+		    
+		    File f=new File(pathToDelete);
+		   boolean b= f.delete();
+		    System.out.println("file deleted"+b);
 		    String path="public/signatureimages/"+accountNo;
 		    System.out.println("path:"+path);
 		    file1.renameTo(new File(path,accountNo+"_verify.jpg"));
-		    System.out.println("File uploaded successfully...");
+		    System.out.println("File uploaded for compare successfully...");
 		  } else {
 			  filledForm.reject("file","Please select the image to uplaod");
 		        
@@ -298,9 +290,9 @@ public class CustomerController extends Controller {
 			float[] trg=SigImgProcessingController.calculateAngles(sizeNormalizeFileName);
 			
 			if(SigImgProcessingController.compareBlockAngles(src, trg)){
-				return ok("Matched");
+				return ok("Signatures Matched");
 			}else{
-				return ok("Not Matched");
+				return ok("Signatures Not Matched");
 				
 			}
 			

@@ -5,7 +5,14 @@
 
 @main() {
 <style>
-img{
+/* img{
+border-style:solid;
+border-width:medium;
+} */
+
+div.test{
+height:100px;
+width:200px;
 border-style:solid;
 border-width:medium;
 }
@@ -22,7 +29,9 @@ var verifySignatures=function(){
 		url:'/portal/verify',
 		data:{accno:accno},
 		success: function(data, textStatus, jqXHR){					
-			alert(data);
+			//alert(data);
+			$('#test').html(data);
+			$('#myModal').modal();
 		},
 		error: function(jqXHR, textStatus, errorThrown){				
 			alert("Error : " + jqXHR.responseText);
@@ -41,9 +50,12 @@ var verifySignatures=function(){
 <table>
 <tr>
 <td><p>Sample Signature One:</p>
-<img src="/assets/SignatureImages/@accountNo/@{accountNo}_1.jpg"  width="200" height="200"></td>
-<td><p>Sample Signature Two:</p>
-<img src="/assets/SignatureImages/@accountNo/@{accountNo}_2.jpg"  width="200" height="200">
+<div class="test" >
+<img src="/assets/SignatureImages/@accountNo/@{accountNo}_1.jpg"></td>
+</div><td><p>Sample Signature Two:</p>
+<div class="test" >
+<img src="/assets/SignatureImages/@accountNo/@{accountNo}_2.jpg">
+</div>
 </td>
 </tr>
 </table>
@@ -52,23 +64,41 @@ var verifySignatures=function(){
 <div>
 <table>
 <tr>
-<td>@views.html.common.errormsg(imageForm.globalErrors())
-
+<td style="width:400px">@views.html.common.errormsg(imageForm.globalErrors())
+<h5>Please select signature to upload:</h5><br>
 @form(action=routes.CustomerController.upload_image(accountNo),'enctype -> "multipart/form-data"){
  @inputFile(
-                imageForm("image"), 
-                '_label -> Messages("customer.signature.verify"),
-                '_error -> imageForm.error("file")
+                imageForm("image"),
+                '_lable -> Messages("customer.signature.verify"), 
+                '_error -> imageForm.error("file"),
+                '_showConstraints -> false
             )
 <button type="submit" class="btn btn-primary">@Messages("common.button.upload")</button>            
 }
 </td>
-<td><p>Sample Signature:</p>
-<img src="/assets/SignatureImages/@accountNo/@{accountNo}_verify.jpg"  width="200" height="200"> </td>
+<td><p>Signature For verification:</p>
+<div class="test">
+<img src="/assets/SignatureImages/@accountNo/@{accountNo}_verify.jpg"> 
+</div>
+</td>
 </tr>
 </table>
 </div>
 <hr>
 <button type="submit" id="verify" class="btn btn-primary">@Messages("common.button.verify")</button>
-		
+
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></button>
+    <h3 id="myModalLabel">Signature Verification Result</h3>
+  </div>
+  <div class="modal-body">
+    <h4 id="test"></h4>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>		
 }

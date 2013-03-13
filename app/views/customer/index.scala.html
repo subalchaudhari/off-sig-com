@@ -55,11 +55,12 @@
 		$("#customer-edit").click(customer_edit_click);
 		$("#customer-delete").click(customer_delete_click);
 		$("#customer-verify-sign").click(verify_cust_sign);
-		$('#customer-grid').popover({title:'@Messages("cust.sign.img")',html:true,content:cust_signs(),placement:'bottom',trigger:'click'});
-		/* $('#customer-grid').click(function(){
+		$('#customer-grid').popover({title:'@Messages("cust.sign.img")',html:true,placement:'bottom',trigger:'click'});
+		 /* $('#customer-grid').click(function(){
 			//alert("test");
-			$(this).popover({title:'@Messages("cust.sign.img")',html:true,content:verify_cust_sign(),placement:'bottom'});
-		}); */
+			 var cont=cust_signs();
+			// $(this).popover({title:'@Messages("cust.sign.img")',html:true,content:cont,placement:'bottom',trigger:'click'})
+		}); */ 
 		
 	});
 
@@ -149,9 +150,7 @@
 		
 		var id = $("#customer-grid").jqGrid('getGridParam','selrow'); 
 		if (id) { 
-			/* $('#myModal').modal(); 
-			var ret = $("#customer-grid").jqGrid('getRowData',id);
-			console.log(ret.accountNumber); */
+			
 			var ret = $("#customer-grid").jqGrid('getRowData',id); 			
 			var link=$(this).attr("link");
 			link=link.replace('0',ret.pk);
@@ -165,18 +164,17 @@
 	}
 	
 	var cust_signs=function(){
-		//alert("hello");
 		var id = $("#customer-grid").jqGrid('getGridParam','selrow');
 		console.debug("id:"+id);
-		//if(id){
+		if(id){
 		var ret = $("#customer-grid").jqGrid('getRowData',id);
-		console.debug("Ret:"+ret);
-		var div='<img src="@routes.Assets.at("SignatureImages/'+ret.signatureOne+'")">';
+		console.debug("Ret:"+ret.accountNumber);
+		//var div='<img src="@routes.Assets.at("SignatureImages/'+ret.accountNumber+'/'+ret.accountNumber+'_1.jpg'")">';
+		var div='<img src="/assets/SignatureImages/'+ret.accountNumber+'/'+ret.accountNumber+'_1.jpg'+'">';
 		return div;
-		console.debug("data:"+ret.signatureOne);
-		//}else{
-		//	return "No Image";
-		//}
+		}else{
+			return "No Image";
+		}
 		}	
 		
 		

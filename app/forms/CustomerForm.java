@@ -32,6 +32,7 @@ public class CustomerForm implements Serializable {
 	@MaxLength(value=225)
 	public String address;
 	
+	
 	public String signatureOne;
 	
 	public String signatureTwo;

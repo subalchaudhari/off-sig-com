@@ -25,7 +25,7 @@ customer.update=Update Customer
 cust.sign.img=Customer Sample Signatures
 common.button.verify=Verify Signature
 common.button.upload=Upload
-customer.signature.verify=Select signature to Compare
+customer.signature.verify=Select signature For Verification:
 
 # Error Messages
 please.select.row=Please Select Row
