@@ -155,6 +155,7 @@ public class SigImgProcessingController {
 
 		int[][] a = readBinaryImage(bufferImage);
 		cvReleaseImage(image);
+		//image.release();
 
 		int[][] b = sizeNormalization(a);
 
@@ -176,7 +177,8 @@ public class SigImgProcessingController {
 		IplImage newimage = IplImage.createFrom(binarized);
 
 		cvSaveImage(sizeNormalizeFileName, newimage);
-		cvReleaseImage(newimage);
+		//cvReleaseImage(newimage);
+		newimage.release();
 	}
 
 	/**

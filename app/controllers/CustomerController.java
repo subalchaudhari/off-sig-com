@@ -278,8 +278,7 @@ public class CustomerController extends Controller {
 			String token=st.nextToken();
 			float angle=Float.parseFloat(token);
 			src[i]=angle;
-			}
-		
+			}		
 			String inputFile="public/signatureimages/"+accno+"/"+accno+"_verify.jpg";
 			String smoothfilename="public/signatureimages/"+accno+"/"+accno+"_verify_smooth.jpg";
 			String binaryfilename="public/signatureimages/"+accno+"/"+accno+"_verify_binary.jpg";

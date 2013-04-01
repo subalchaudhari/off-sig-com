@@ -30,15 +30,13 @@ customer.signature.verify=Select signature For Verification:
 # Error Messages
 please.select.row=Please Select Row
 json.expecting=Expecting Json Data
-name.already.exists=Name already exists
-id.not.exists=Id {0} does not exists
 record.deleted.succ=Selected record has been deleted successfully
 id.expecting=Expecting Id
 
 # Login
 login.username=Username
 login.password=Password
-
+login.register=Register New user?
 invalid.user=Invalid username or password, please try again
 
 
@@ -46,21 +44,6 @@ invalid.user=Invalid username or password, please try again
 welcome.logout=LOGOUT
 
 # Sidebar Menu
-menu.header.invoice=Invoice & Payment
-menu.header.admin=Admin
-menu.header.report=Reports
-menu.header.profile=Profile
-
-menu.search.invoice=Search Invoice
-menu.generate.invoice=Generate Invoice
-menu.payment.daily.report=Collection Report - Area
-menu.payment.daily.report.sa=Collection Report - Sub Area
-menu.payment.report=Collection Report - Yearly
-menu.invoice.report=Invoice Report - Yearly
-menu.customer=Customer
-menu.employee=Employee
-menu.user=User
-menu.change.password=Change Password
 
 # Customer
 customer=Customer
@@ -68,65 +51,15 @@ customer.fname=First Name
 customer.lname=Last Name
 customer.address=Address
 customer.mobile=Mobile
-customer.rate=Rate
-customer.joining.date=Joining Date
-customer.terminated.date=Terminated Date
 customer.id.number=ID Number
-customer.balance=Balance
-customer.deposite.amount=Deposite Amount
 customer.index=Customers
 customer.add=Create Customer
 customer.update=Update Customer
 customer.accountNumber=Account No
 customer.email=Email
-
 customer.id.exists=Customer Id already exists
 customer.mobile.exists=Customer mobile number already exists
-customer.assoc.invoice=Customer ['{0}'] is associated with Invoice(s)
 
-
-# Employee
-employee=Employee
-employee.index=Employees
-employee.name=Employee Name
-employee.address=Address
-employee.mobile=Mobile Number
-employee.joining.date=Joining Date
-employee.terminated.date=Terminated Date
-
-employee.add=Create Employee
-employee.update=Update Employee
-
-
-# Reports
-collection.report.yearly=Collection Report Yearly
-collection.report.monthly=Collection Report Monthly
-no.collection.data=No Collection Yet
-th.total=Total
-th.id.nr=Id Nr.
-
-th.jan=Jan
-th.feb=Feb
-th.mar=Mar
-th.apr=Apr
-th.may=May
-th.jun=Jun
-th.jul=Jul
-th.aug=Aug
-th.sept=Sept
-th.oct=Oct
-th.nov=Nov
-th.dec=Dec
-
-# Price
-price=price
-price.index=Prices
-price.amount=Rate Amount
-price.create=Create Price
-price.update=Update Price
-
-price.assoc.customer=Price ['{0}'] is associated with Customer(s)
-amount.already.exists=Price amount already exists
 
 # User
 user=User

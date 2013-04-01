@@ -28,7 +28,9 @@ GET     /portal/verify               controllers.CustomerController.verifySignat
 # User
 GET 	/portal/users 				controllers.UserController.index()
 GET 	/portal/change/passwd		controllers.UserController.get_change_passwd()
+GET     /portal/user/:id            controllers.UserController.get(id:Long)
 POST 	/portal/change/passwd		controllers.UserController.change_passwd()
+POST    /service/createuser                controllers.UserController.create()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
